@@ -1,9 +1,11 @@
-# Walmart-Sales-Portfolio
-
 # Walmart Sales Data Analysis
 
+## Project Overview
 
-## About Data
+The analysis provides a snapshot of overall sales performance, including total revenue, number of units sold, and average order value. This section highlights current performance against predefined targets.
+
+
+## Data Source
 
 The dataset was obtained from the [Kaggle Walmart Sales Forecasting Competition](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting). This dataset contains sales transactions from a three different branches of Walmart, respectively located in Mandalay, Yangon and Naypyitaw. The data contains 17 columns and 1000 rows:
 
@@ -17,17 +19,22 @@ The dataset was obtained from the [Kaggle Walmart Sales Forecasting Competition]
 | product_line            | Product line of the product solf        | VARCHAR(100)   |
 | unit_price              | The price of each product               | DECIMAL(10, 2) |
 | quantity                | The amount of the product sold          | INT            |
-| VAT                 | The amount of tax on the purchase       | FLOAT(6, 4)    |
+| VAT                     | The amount of tax on the purchase       | FLOAT(6, 4)    |
 | total                   | The total cost of the purchase          | DECIMAL(10, 2) |
 | date                    | The date on which the purchase was made | DATE           |
 | time                    | The time at which the purchase was made | TIMESTAMP      |
-| payment_method                 | The total amount paid                   | DECIMAL(10, 2) |
+| payment_method          | The total amount paid                   | DECIMAL(10, 2) |
 | cogs                    | Cost Of Goods sold                      | DECIMAL(10, 2) |
 | gross_margin_percentage | Gross margin percentage                 | FLOAT(11, 9)   |
 | gross_income            | Gross Income                            | DECIMAL(10, 2) |
 | rating                  | Rating                                  | FLOAT(2, 1)    |
 
+## Tools
 
+- Sql server - Data cleaning
+- PowerBI - Visualization
+  
+## Data cleaning
 
 **Feature Engineering:** This will help use generate some new columns from existing ones.
 
@@ -38,10 +45,9 @@ The dataset was obtained from the [Kaggle Walmart Sales Forecasting Competition]
 
 > 3. Add a new column named `month_name` that contains the extracted months of the year on which the given transaction took place (Jan, Feb, Mar). Help determine which month of the year has the most sales and profit.
 
-2. **Exploratory Data Analysis (EDA):** Exploratory data analysis is done to answer the listed questions and aims of this project.
+## Exploratory Data Analysis (EDA): Exploratory data analysis is done to answer the listed questions and aims of this project.
 
-
-## Business Questions To Answer
+**Business Questions To Answer**
 
 ### Generic Question
 
@@ -61,7 +67,7 @@ The dataset was obtained from the [Kaggle Walmart Sales Forecasting Competition]
 7. Fetch each product line and add a column to those product line showing "Good", "Bad". Good if its greater than average sales
 8. Which branch sold more products than average product sold?
 9. What is the most common product line by gender?
-12. What is the average rating of each product line?
+10. What is the average rating of each product line?
 
 ### Sales
 
@@ -82,5 +88,31 @@ The dataset was obtained from the [Kaggle Walmart Sales Forecasting Competition]
 8. Which time of the day do customers give most ratings per branch?
 9. Which day fo the week has the best avg ratings?
 10. Which day of the week has the best average ratings per branch?
+
+## Data Analysis
+
+incude some query/code worked with
+```
+select time,
+case 
+  when time between "00:00:00" AND "12:00:00" then "Morning"
+  when time between "12:01:00" and "16:00:00" then "Afternoon"
+  else "Evening"
+end AS time_of_day
+from sales;
+
+-- what time of the day do customer give most rating per branch?
+
+select time_of_day,branch, round(avg(rating),2) as avg_rating
+from (
+  select branch,time_of_day,rating
+  from sales
+  where branch in ("A","B","C")
+) as subquery
+group by branch,time_of_day
+order by branch,avg_rating desc;
+
+```
+## Result / Findings
 
 
