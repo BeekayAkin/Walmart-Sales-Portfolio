@@ -114,5 +114,10 @@ order by branch,avg_rating desc;
 
 ```
 ## Result / Findings
-
-
+- Preferred means of payment is with cash.
+- Highest sales was on saturday.
+- Branch A has the highest quantity sold.
+- The company made more sales from members than customers.
+- City Naypyitaw has the highest sales.
+- Fashion accessories is the most sold product. 
+  
